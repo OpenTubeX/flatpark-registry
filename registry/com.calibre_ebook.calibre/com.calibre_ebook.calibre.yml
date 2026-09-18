@@ -1,6 +1,6 @@
 id: com.calibre_ebook.calibre
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 command: calibre
 separate-locales: false
@@ -10,7 +10,7 @@ finish-args:
   # calibre's Linux build is fully self-contained: it brings its own Python,
   # Qt 6, QtWebEngine, ffmpeg, OpenSSL, poppler, libmtp and espeak-ng. Only the
   # display, GL, fontconfig, NSS, X11/Wayland and audio stacks come from the
-  # runtime (org.freedesktop.Platform 25.08 ships them — verified against the
+  # runtime (org.freedesktop.Platform 26.08 ships them — verified against the
   # bundle's NEEDED set; the handful it does not cover are optional Qt plugins
   # for the eglfs/linuxfb platforms and the flite/speech-dispatcher text-to-
   # speech backends, none of which are used on a normal desktop session, where

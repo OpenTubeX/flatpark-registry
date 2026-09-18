@@ -22,7 +22,7 @@ EOF
 cat > "$one_dir/io.flatpark.TestOne.yml" <<'EOF'
 id: io.flatpark.TestOne
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 command: test-one
 finish-args:
   - --share=network

@@ -1,11 +1,11 @@
 id: com.tradingview.tradingview
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 # Electron app: use the Electron base app for zypak instead of disabling
 # Chromium's sandbox.
 base: org.electronjs.Electron2.BaseApp
-base-version: "25.08"
+base-version: "26.08"
 command: tradingview
 separate-locales: false
 build-options:

@@ -10,9 +10,11 @@
 # Runtime: org.kde.Platform. The payload is not self-contained - it links the
 # system Qt 6 through libQt6Pas, exactly as upstream's .deb does
 # (Depends: libqt6widgets6, libqt6gui6, libqt6core6, libqt6pas6). This is the
-# catalog's first KDE-runtime app, so it enters on the current branch: 6.11,
-# built on freedesktop 25.08 — the same base org.gnome.Platform//50 and
-# org.freedesktop.Platform//25.08 give the rest of the catalog.
+# catalog's first KDE-runtime app, so it tracks the current KDE branch: 6.11,
+# built on freedesktop 25.08. That is one generation behind the freedesktop apps
+# (26.08) because Flathub publishes no 26.08-based KDE branch yet — 6.11 is the
+# newest there is. Move it the moment one lands, so the catalog stops carrying a
+# second freedesktop base for a single app.
 id: com.heidisql.HeidiSQL
 runtime: org.kde.Platform
 runtime-version: "6.11"

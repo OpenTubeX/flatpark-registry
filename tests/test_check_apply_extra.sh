@@ -12,8 +12,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 command -v flatpak >/dev/null || { echo "test_check_apply_extra: SKIP (no flatpak)"; exit 0; }
 command -v bwrap   >/dev/null || { echo "test_check_apply_extra: SKIP (no bwrap)"; exit 0; }
 command -v python3 >/dev/null || { echo "test_check_apply_extra: SKIP (no python3)"; exit 0; }
-flatpak info --show-location org.freedesktop.Platform//25.08 >/dev/null 2>&1 \
-    || { echo "test_check_apply_extra: SKIP (no org.freedesktop.Platform//25.08)"; exit 0; }
+flatpak info --show-location org.freedesktop.Platform//26.08 >/dev/null 2>&1 \
+    || { echo "test_check_apply_extra: SKIP (no org.freedesktop.Platform//26.08)"; exit 0; }
 
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 id="io.flatpark.ApplyExtra"
@@ -51,7 +51,7 @@ EOF
 cat >"$app/$id.yml" <<EOF
 id: $id
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 command: apply-extra
 modules:

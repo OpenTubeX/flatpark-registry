@@ -1,6 +1,6 @@
 id: cn.com._10jqka.THS
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 command: ths
 separate-locales: false
@@ -54,8 +54,8 @@ modules:
         filename: openssl-1.1-compat.tar.xz
         only-arches:
           - x86_64
-        url: https://github.com/flatpark/prebuilt/releases/download/openssl-1.1-compat-v1/openssl-1.1-compat-openssl-1.1-compat-v1-fd-25.08-x86_64.tar.xz
-        sha256: bedbd934a059322af7644676e89f9ccc510747917101e386c1a784a0a03d3939
+        url: https://github.com/flatpark/prebuilt/releases/download/openssl-1.1-compat-v2/openssl-1.1-compat-openssl-1.1-compat-v2-fd-26.08-x86_64.tar.xz
+        sha256: 260ef0c0871a31826b06a0561c2bdb17a68013d82206220ddc8c226db35d99d7
         size: 3966556
       # BEGIN MANAGED EXTRA-DATA
       - type: extra-data

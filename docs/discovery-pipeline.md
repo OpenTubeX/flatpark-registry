@@ -63,7 +63,7 @@ the go/no-go decision and the upstream comment in §5.
 ## 4. Package & submit
 - **Inspect the artifact:** extract (`ar`+`tar`/`bsdtar` for deb, `tar` for tarball),
   `readelf -d` NEEDED vs runtime coverage, locate icon/.desktop/metainfo.
-- **Pick the runtime:** `org.freedesktop.Platform//25.08` by default (it ships
+- **Pick the runtime:** `org.freedesktop.Platform//26.08` by default (it ships
   GTK3/NSS/CUPS too); `org.gnome.Platform//50` for **GTK / WebKitGTK / Tauri**.
 - **Tech recipes:**
   - **Electron** → `base: org.electronjs.Electron2.BaseApp//<ver>` + `zypak-wrapper`

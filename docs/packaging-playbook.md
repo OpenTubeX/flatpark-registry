@@ -112,11 +112,17 @@ Detail + schema in the [contributing guide](https://flatpark.org/contributing/).
   a real uid (`1000`, `1001`, …) and trip this; `.deb`s from a proper `dpkg-deb` do not, which
   is why it hides. Check with
   `bsdtar --numeric-owner -tvf <artifact> | awk '{print $3":"$4}' | sort -u`.
-- **Pick the runtime.** `org.freedesktop.Platform//25.08` by default; `org.gnome.Platform//50`
+- **Pick the runtime.** `org.freedesktop.Platform//26.08` by default; `org.gnome.Platform//50`
   for GTK / WebKitGTK / Tauri. **Always the major the rest of the catalog is on** — match what
   the existing manifests pin, never an older major to dodge a build break. A single straggler
   forces every user to keep a second runtime major on disk. If an app genuinely can't run on the
   current major, that's a **flag-and-ask**, not a quiet downgrade.
+  - **Where the catalog stands (2026-09-18).** The freedesktop apps are on **26.08**; the GTK /
+    WebKitGTK / Tauri apps are still on `org.gnome.Platform//50`, which is built on freedesktop
+    25.08, and `com.heidisql.HeidiSQL` is on `org.kde.Platform//6.11`, also 25.08-based. So users
+    currently hold two freedesktop bases. That is deliberate and temporary: GNOME 51 (the 26.08-based
+    GNOME) shipped 2026-09-16 and is being left to settle, and Flathub has no 26.08-based KDE branch
+    at all. Close the gap with GNOME 51 in its own batch — do not add new apps on 50.
 - **Tech recipes.**
   - **Electron** → `base: org.electronjs.Electron2.BaseApp//<ver>`, run via `zypak-wrapper`
     so Chromium keeps its **internal sandbox through Zypak's default entrypoint** (do **not**
