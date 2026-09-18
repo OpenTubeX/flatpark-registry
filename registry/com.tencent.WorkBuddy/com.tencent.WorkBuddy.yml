@@ -1,6 +1,6 @@
 id: com.tencent.WorkBuddy
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 # Electron app: use the Electron base app, which ships zypak. zypak redirects
 # Chromium's SUID sandbox onto the Flatpak sandbox, so WorkBuddy keeps
@@ -8,7 +8,7 @@ sdk: org.freedesktop.Sdk
 # is a prebuilt ref merged in at build time; the official upstream application
 # tree is fetched as extra-data and left unmodified.
 base: org.electronjs.Electron2.BaseApp
-base-version: "25.08"
+base-version: "26.08"
 command: workbuddy
 separate-locales: false
 build-options:
@@ -17,7 +17,7 @@ finish-args:
   # Electron 37 / Chromium 138. The upstream .deb bundles Chromium, its ffmpeg
   # and swiftshader libraries, a Node 22 and a CPython 3.13 runtime for the
   # agent's tools, and the Tencent Docs rendering engine; the GTK3, NSS, ATK,
-  # CUPS, DRM/GBM, ALSA and X11 stacks come from org.freedesktop.Platform 25.08.
+  # CUPS, DRM/GBM, ALSA and X11 stacks come from org.freedesktop.Platform 26.08.
   - --share=ipc
   # Model requests, sign-in (a Tencent account), the plugin/skill marketplace
   # and update checks.

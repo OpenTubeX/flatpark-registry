@@ -1,12 +1,12 @@
 id: top.izuna.foliamajor
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 # Electron app: use the Electron base app, which ships zypak. zypak redirects
 # Chromium's SUID sandbox onto the Flatpak sandbox so the app keeps an internal
 # sandbox instead of running with --no-sandbox.
 base: org.electronjs.Electron2.BaseApp
-base-version: "25.08"
+base-version: "26.08"
 command: folia
 separate-locales: false
 build-options:

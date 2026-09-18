@@ -4,7 +4,7 @@ set -eu
 # MeatShell is a single native Rust + Slint binary staged by apply_extra to
 # /app/extra/meatshell. It links only against libc, libm, libgcc_s and
 # libfontconfig, and dlopens the Wayland/X11/EGL/xkbcommon stack through winit —
-# all of it present in org.freedesktop.Platform 25.08, so nothing extra is
+# all of it present in org.freedesktop.Platform 26.08, so nothing extra is
 # bundled. Flatpak redirects $XDG_CONFIG_HOME, so the app's sessions.json,
 # secret.key and known_hosts stay inside
 # ~/.var/app/io.github.yituorou.meatshell/config/meatshell.

@@ -1,6 +1,6 @@
 id: ai.cchaha.ClaudeCodeHaha
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 # Electron app: use the Electron base app, which ships zypak. zypak redirects
 # Chromium's SUID sandbox onto the Flatpak sandbox, so the app keeps an internal
@@ -8,7 +8,7 @@ sdk: org.freedesktop.Sdk
 # base is a prebuilt ref merged into the app at build time; the app stays
 # self-contained.
 base: org.electronjs.Electron2.BaseApp
-base-version: "25.08"
+base-version: "26.08"
 command: cchaha
 separate-locales: false
 build-options:
@@ -17,7 +17,7 @@ finish-args:
   # Electron (Chromium) agent workbench. The prebuilt build bundles Chromium,
   # its own ffmpeg/ANGLE/Vulkan, the agent CLI engine and a ripgrep binary; the
   # GTK3, NSS, CUPS, ATK, ALSA, dbus, gbm and X11 stacks it links come from
-  # org.freedesktop.Platform 25.08 — verified against the binary's NEEDED set,
+  # org.freedesktop.Platform 26.08 — verified against the binary's NEEDED set,
   # 0 missing.
   - --share=ipc
   # Talks to the model providers over HTTPS, and to a local endpoint over the

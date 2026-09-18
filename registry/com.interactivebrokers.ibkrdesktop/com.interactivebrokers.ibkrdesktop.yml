@@ -1,6 +1,6 @@
 id: com.interactivebrokers.ibkrdesktop
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 command: ibkr-desktop
 separate-locales: false
@@ -26,7 +26,7 @@ modules:
     sources:
       # IBKR bundles its own Qt 6.8.3, and their build of libQt6Network carries a
       # hard DT_NEEDED on libgssapi_krb5.so.2 (readelf -d confirms it; the only
-      # reference in the whole payload). org.freedesktop.Platform//25.08 ships no
+      # reference in the whole payload). org.freedesktop.Platform//26.08 ships no
       # krb5 at all, so without this the loader fails on libQt6Network and the
       # app never starts — this is a link-time dependency, unrelated to whether
       # anyone ever authenticates with Kerberos.
@@ -45,8 +45,8 @@ modules:
         filename: krb5-gss.tar.xz
         only-arches:
           - x86_64
-        url: https://github.com/flatpark/prebuilt/releases/download/krb5-gss-v1/krb5-gss-krb5-gss-v1-fd-25.08-x86_64.tar.xz
-        sha256: dfda035156e18d7877b274bfb4ae81e09de764ac5b074c75e5887ae5138eee8b
+        url: https://github.com/flatpark/prebuilt/releases/download/krb5-gss-v2/krb5-gss-krb5-gss-v2-fd-26.08-x86_64.tar.xz
+        sha256: 499040be2b155b7a2869cfbe472031bbe336dff887d26809fa54fc5ae318dcf8
         size: 1996340
       # BEGIN MANAGED EXTRA-DATA
       - type: extra-data

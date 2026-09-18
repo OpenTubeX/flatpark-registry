@@ -1,6 +1,6 @@
 id: io.github.yituorou.meatshell
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 command: meatshell
 separate-locales: false
@@ -11,7 +11,7 @@ finish-args:
   # femtovg (OpenGL) renderer through winit, which dlopens libwayland-client,
   # libEGL/libGL, libX11 and libxkbcommon at runtime; its only NEEDED libraries
   # are libc, libm, libgcc_s and libfontconfig. All of that comes from
-  # org.freedesktop.Platform 25.08 (verified against the binary — 0 missing).
+  # org.freedesktop.Platform 26.08 (verified against the binary — 0 missing).
   - --share=ipc
   # SSH / SFTP / Telnet, port forwarding (-L/-R/-D) and the outbound
   # SOCKS5/HTTP proxy — the client's core transport.
@@ -48,7 +48,7 @@ modules:
     sources:
       # MeatShell is a Chinese-first application and its terminal renders
       # whatever the remote host prints, so a CJK face has to be reachable.
-      # Neither org.freedesktop.Platform 25.08 nor a typical non-CJK host ships
+      # Neither org.freedesktop.Platform 26.08 nor a typical non-CJK host ships
       # one, and the app's embedded fallback face is Latin-only — every CJK
       # glyph comes out as a tofu box. The face is extra-data rather than a
       # build module so its 19.5 MB stay out of FlatPark's repository for a file
