@@ -58,7 +58,7 @@ modules:
       - install -Dm755 apply_extra.sh /app/bin/apply_extra
       - install -Dm755 wemeet-wrapper /app/bin/wemeetapp
       - install -Dm644 com.tencent.wemeet.metainfo.xml -t /app/share/metainfo
-      - install -Dm644 wemeet.svg -t /app/share/icons/hicolor/scalable/apps
+      - install -Dm644 com.tencent.wemeet.svg /app/share/icons/hicolor/scalable/apps/wemeet.svg
       - install -Dm644 wemeet.desktop /app/share/applications/wemeet.desktop
       # WeMeet's own launch script calls desktop-file-edit at runtime to register
       # the wemeet: URL handler; the Platform runtime has no desktop-file-utils,
@@ -102,6 +102,6 @@ modules:
       - type: file
         path: com.tencent.wemeet.metainfo.xml
       - type: file
-        path: wemeet.svg
+        path: com.tencent.wemeet.svg
       - type: file
         path: wemeet.desktop

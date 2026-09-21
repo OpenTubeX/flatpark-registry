@@ -243,7 +243,10 @@ Detail + schema in the [contributing guide](https://flatpark.org/contributing/).
     refreshed pin shipped an app nobody could install
     ([#130](https://github.com/flatpark/flatpark/issues/130)).
 - **Descriptor set** under `registry/<app-id>/`: `flatpark.yml`, `<id>.yml`, `<id>.metainfo.xml`,
-  `<id>.desktop`, `<id>.png`, `apply_extra.sh`, `<app>-wrapper`, `resolve-update.sh`.
+  `<id>.desktop`, `<id>.png` (or `<id>.svg`), `apply_extra.sh`, `<app>-wrapper`, `resolve-update.sh`.
+  The icon **must** carry the app id as its filename even when the manifest installs it under
+  another name: `gen-apps-json.sh` only picks up `<id>.svg|png`, and anything else leaves the
+  catalog card showing the app's initials. `audit-descriptor.mjs` hard-fails on a miss.
 - **Permissions:** tightest `finish-args` that work. Don't pre-grant broad host access;
   document optional caps (`~/.ssh`, `--device=all`, `--filesystem=home`) as opt-in
   `flatpak override` in the **metainfo**, not in `finish-args`.
