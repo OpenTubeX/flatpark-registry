@@ -75,9 +75,9 @@ modules:
         filename: motrix.deb
         only-arches:
           - x86_64
-        url: https://github.com/agalwood/Motrix/releases/download/v2.0.0-beta.39/Motrix_2.0.0-beta.39_amd64.deb
-        sha256: a452637849f78bd417836a5897df7a477890b73883fba7616da55c679db04aeb
-        size: 110313172
+        url: https://github.com/agalwood/Motrix/releases/download/v2.0.0-beta.40/Motrix_2.0.0-beta.40_amd64.deb
+        sha256: 1641d4929e459c483a2beca951e9e32e686fb240d247402f5338f787fbdf1aa5
+        size: 110337096
       # END MANAGED EXTRA-DATA
       - type: file
         path: apply_extra.sh
