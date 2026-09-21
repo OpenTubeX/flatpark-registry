@@ -62,7 +62,7 @@ modules:
       - install -Dm755 brave-origin-wrapper /app/bin/brave-origin
       - install -Dm644 com.brave.Origin.desktop /app/share/applications/com.brave.Origin.desktop
       - install -Dm644 com.brave.Origin.metainfo.xml /app/share/metainfo/com.brave.Origin.metainfo.xml
-      - install -Dm644 brave_lion.svg /app/share/icons/hicolor/scalable/apps/com.brave.Origin.svg
+      - install -Dm644 com.brave.Origin.svg -t /app/share/icons/hicolor/scalable/apps
     sources:
       # BEGIN MANAGED EXTRA-DATA
       - type: extra-data
@@ -89,4 +89,4 @@ modules:
       - type: file
         path: com.brave.Origin.metainfo.xml
       - type: file
-        path: brave_lion.svg
+        path: com.brave.Origin.svg

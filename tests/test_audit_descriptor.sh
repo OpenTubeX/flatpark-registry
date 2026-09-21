@@ -25,6 +25,16 @@ out="$($AUDIT "$F/bad-updatecmd/flatpark.yml" 2>&1)"; rc=$?
 assert_eq "$rc" "1"
 printf '%s' "$out" | grep -qiF "update.command" || { echo "FAIL: update.command not reported"; exit 1; }
 
+# Catalog icon: the site only picks up <id>.svg|png, so a differently named
+# icon file is a hard fail (it would ship a card with initials instead).
+noicon="$(mktemp -d)"
+cp "$F/good/flatpark.yml" "$F/good/manifest.yml" "$noicon/"
+cp "$F/good/com.example.App.svg" "$noicon/lion.svg"
+out="$($AUDIT "$noicon/flatpark.yml" 2>&1)"; rc=$?
+rm -rf "$noicon"
+assert_eq "$rc" "1"
+printf '%s' "$out" | grep -qF "catalog icon" || { echo "FAIL: missing icon not reported"; exit 1; }
+
 # G3: runtime npm install warns but does NOT fail (exit 0, WARN line)
 out="$($AUDIT "$F/warn-runtimefetch/flatpark.yml" 2>&1)"; rc=$?
 assert_eq "$rc" "0"

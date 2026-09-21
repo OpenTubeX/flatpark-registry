@@ -8,7 +8,7 @@
 //
 // Exit 0 = no hard failures (warnings allowed); exit 1 = hard failure(s).
 // Hard failures print `FAIL: ...`; advisory findings print `WARN: ...`.
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
 const file = process.argv[2];
@@ -41,6 +41,7 @@ try {
   process.exit(1);
 }
 
+let appId = '';
 let manifestName = '';
 let updateCommand = '';
 let proprietary = null;
@@ -55,6 +56,7 @@ const dangerousPerms = [];
     if (ind === 0) {
       inDanger = false;
       const m = s.match(/^([A-Za-z0-9_]+):\s*(.*)$/);
+      if (m && m[1] === 'id' && m[2] !== '') appId = unquote(m[2]);
       section = m && m[2] === '' ? m[1] : null;
       continue;
     }
@@ -79,6 +81,17 @@ const dangerousPerms = [];
 }
 
 if (!manifestName) fail('descriptor missing build.manifest');
+
+// The catalog card and the app page render registry/<id>/<id>.svg|png, copied
+// verbatim by gen-apps-json.sh. Any other filename is invisible to the site,
+// which then falls back to the app's initials on a coloured square — so the
+// naming convention is a gate, not a style note.
+if (appId) {
+  const iconDir = dirname(file);
+  if (!['svg', 'png'].some((ext) => existsSync(join(iconDir, `${appId}.${ext}`)))) {
+    fail(`missing catalog icon: expected ${appId}.svg or ${appId}.png next to the descriptor`);
+  }
+}
 
 // update.command must be a simple relative script path (it runs in CI).
 if (updateCommand && !/^\.\/[A-Za-z0-9._-]+$/.test(updateCommand)) {

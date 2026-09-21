@@ -26,8 +26,11 @@ const SECTION_MAP = {
   AI: 'ai',
   Development: 'development', IDE: 'development', Building: 'development',
   Finance: 'finance',
-  Network: 'communication', Communication: 'communication', Chat: 'communication',
-  InstantMessaging: 'communication', Email: 'communication',
+  // The fdo Network main category, under the name every desktop menu gives it:
+  // browsers, downloaders, file transfer, chat and remote access all live here.
+  Network: 'internet', Communication: 'internet', Chat: 'internet',
+  InstantMessaging: 'internet', Email: 'internet', News: 'internet',
+  RemoteAccess: 'internet', FileTransfer: 'internet', P2P: 'internet',
   Science: 'science', Education: 'science', Geoscience: 'science',
   Office: 'office', Spreadsheet: 'office',
   Graphics: 'graphics', Photography: 'graphics',
