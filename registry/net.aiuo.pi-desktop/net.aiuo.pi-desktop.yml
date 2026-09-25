@@ -1,0 +1,114 @@
+id: net.aiuo.pi-desktop
+runtime: org.freedesktop.Platform
+runtime-version: "26.08"
+sdk: org.freedesktop.Sdk
+# Electron app: layer in the Electron base app, which ships zypak. zypak
+# redirects Chromium's SUID sandbox onto the Flatpak sandbox so the app keeps an
+# internal sandbox (the wrapper runs it via zypak-wrapper) instead of
+# --no-sandbox. The base is merged into the app at build time; the payload stays
+# the vendor's own release, fetched as extra-data.
+base: org.electronjs.Electron2.BaseApp
+base-version: "26.08"
+command: pi-desktop
+separate-locales: false
+build-options:
+  no-debuginfo: true
+finish-args:
+  # Electron (Chromium) coding-agent workspace. The .deb bundles Chromium, its
+  # own ffmpeg/ANGLE/SwiftShader, app.asar, the bundled agent runtime and the
+  # Rust host-core binary; the GTK3, NSS, NSPR, CUPS, ATK, gbm, X11 and
+  # libasound stacks the launcher links come from the runtime
+  # (org.freedesktop.Platform 26.08 — the launcher's full DT_NEEDED set is the
+  # standard one every Electron package here was verified against; the
+  # host-core binary links only the C runtime).
+  - --share=ipc
+  # Model API calls, sign-in, plugin marketplace and release checks — talking
+  # to configured model providers is the app's whole workflow.
+  - --share=network
+  - --socket=wayland
+  - --socket=fallback-x11
+  # GPU-accelerated Chromium compositing (editor, diffs, work panels).
+  - --device=dri
+  # Audio for media opened in the work panel's browser preview and for voice
+  # plugins. The PulseAudio socket covers recording as well as playback, so this
+  # is also what gives voice plugins the microphone.
+  - --socket=pulseaudio
+  # Desktop notifications for finished agent runs and approval prompts.
+  - --talk-name=org.freedesktop.Notifications
+  # Tray icon. Electron's tray claims the bus name
+  # org.freedesktop.StatusNotifierItem-<getpid()>-1 and gives up on the first
+  # refusal, so without a matching own-name the tray silently never appears.
+  # Every sandboxed app is PID 2, so pi-desktop-wrapper pins the reported PID to
+  # 949494 (see the fake-getpid module) and this single name is all it ever
+  # needs, instead of racing every other Flatpak tray app for the PID-2 name.
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --own-name=org.freedesktop.StatusNotifierItem-949494-1
+  # Strip a leaked ELECTRON_RUN_AS_NODE from the sandbox env so the binary —
+  # and zypak's spawned child/zygote processes, which the wrapper's own `unset`
+  # cannot reach — always start as the GUI app rather than as plain Node.
+  - --unset-env=ELECTRON_RUN_AS_NODE
+  # The app keeps its own state (sessions, provider credentials, window state,
+  # logs) in $HOME/.pi-desktop, and the agent harness keeps user-authored global
+  # prompts, AGENTS.md, skills and subagents in $HOME/.pi and $HOME/.agents.
+  # Flatpak redirects only the XDG dirs, not $HOME, so without these every one of
+  # them would be written to the sandbox's throwaway home and lost on exit.
+  # - The app state is moved into $XDG_DATA_HOME by the wrapper
+  #   (PI_DESKTOP_DATA_DIR), so it stays in the per-app data dir even when the
+  #   user adds a home override. A --persist would be dropped in that case, and
+  #   sessions and credentials would seem to vanish.
+  # - ~/.pi and ~/.agents are persisted privately. They are shared with the
+  #   native pi CLI and ~/.pi/agent holds that CLI's auth.json, so the real
+  #   directories are not granted by default; the metainfo's home override makes
+  #   the app use the real ones instead.
+  - --persist=.pi
+  - --persist=.agents
+  # Deliberately NOT granted by default (documented as opt-in in the
+  # metainfo):
+  #   --filesystem=home   -> open projects stored anywhere in the real home and
+  #                           share the real ~/.pi, ~/.agents, ~/.claude, ~/.codex
+  #                           with the host's agent CLIs (session import included)
+  #   --talk-name=org.freedesktop.secrets -> the system keyring. The app uses
+  #                           Electron's safeStorage only for remote-host
+  #                           pairing tokens and refuses to save them without
+  #                           it; provider credentials are encrypted by the
+  #                           host core with a key in its own data dir.
+  # Projects picked through the file-chooser portal are reachable without any
+  # of these.
+modules:
+  - name: pi-desktop-fakepid
+    buildsystem: simple
+    build-commands:
+      - cc -shared -fPIC -O2 fake-getpid.c -o libfakepid.so -ldl
+      - install -Dm755 libfakepid.so /app/lib/pi-desktop/libfakepid.so
+    sources:
+      - type: file
+        path: fake-getpid.c
+
+  - name: pi-desktop
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 apply_extra.sh /app/bin/apply_extra
+      - install -Dm755 pi-desktop-wrapper /app/bin/pi-desktop
+      - install -Dm644 net.aiuo.pi-desktop.desktop /app/share/applications/net.aiuo.pi-desktop.desktop
+      - install -Dm644 net.aiuo.pi-desktop.metainfo.xml /app/share/metainfo/net.aiuo.pi-desktop.metainfo.xml
+      - install -Dm644 net.aiuo.pi-desktop.png /app/share/icons/hicolor/512x512/apps/net.aiuo.pi-desktop.png
+    sources:
+      # BEGIN MANAGED EXTRA-DATA
+      - type: extra-data
+        filename: pi-desktop.deb
+        only-arches:
+          - x86_64
+        url: https://github.com/vastsa/PI-Desktop/releases/download/v0.15.7/pi-desktop_0.15.7_amd64.deb
+        sha256: 47a455466139f080b2727d83e7ce02bfa932a257b1066546bfb0c434c78984fb
+        size: 105977624
+      # END MANAGED EXTRA-DATA
+      - type: file
+        path: apply_extra.sh
+      - type: file
+        path: pi-desktop-wrapper
+      - type: file
+        path: net.aiuo.pi-desktop.desktop
+      - type: file
+        path: net.aiuo.pi-desktop.metainfo.xml
+      - type: file
+        path: net.aiuo.pi-desktop.png
